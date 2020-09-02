@@ -28,7 +28,9 @@
           :disabled="sending"
           v-model="form.password" />
           <span class="md-error" v-if="!$v.form.password.required">A Password is required</span>
-            <span class="md-error" v-else-if="!$v.form.password.minlength">Password too short</span>
+            <span
+            class="md-error"
+            v-else-if="!$v.form.password.minlength">Password must be at least 6 characters</span>
         </md-field>
 
         <div class="actions md-layout md-alignment-center-space-between">
@@ -44,7 +46,6 @@
       </div>
 
     </md-content>
-    <div class="background" />
   </div>
 </template>
 
@@ -76,7 +77,7 @@ export default {
       },
       password: {
         required,
-        minLength: minLength(3),
+        minLength: minLength(6),
       },
     },
   },
