@@ -34,12 +34,12 @@
         <md-list>
           <md-list-item>
             <md-icon>move_to_inbox</md-icon>
-            <span class="md-list-item-text">Login</span>
+            <span class="md-list-item-text"><md-button to="/login">Login</md-button></span>
           </md-list-item>
 
           <md-list-item>
             <md-icon>send</md-icon>
-            <span class="md-list-item-text">Sign Up</span>
+            <span class="md-list-item-text"><md-button to="/register">Sign Up</md-button></span>
           </md-list-item>
 
         </md-list>

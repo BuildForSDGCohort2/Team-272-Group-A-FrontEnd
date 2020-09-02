@@ -20,10 +20,10 @@
 
         <div class="md-toolbar-row">
           <md-tabs class="md-primary">
-            <md-tab id="tab-home" md-label="Home" ></md-tab>
-            <md-tab id="tab-services" md-label="Services"></md-tab>
-            <md-tab id="tab-pricing" md-label="Pricing"></md-tab>
-            <md-tab id="tab-about-us" md-label="About Us"></md-tab>
+            <md-tab id="tab-home" md-label="Home" href='#'></md-tab>
+            <md-tab id="tab-services" md-label="Services" href="#"></md-tab>
+            <md-tab id="tab-pricing" md-label="Pricing" href="#"></md-tab>
+            <md-tab id="tab-about-us" md-label="About Us" href="#"></md-tab>
           </md-tabs>
         </div>
       </md-app-toolbar>
@@ -46,7 +46,7 @@
       </md-app-drawer>
 
       <md-app-content>
-
+        <Register/>
       </md-app-content>
     </md-app>
   </div>
@@ -54,7 +54,7 @@
 
 <style lang="scss" scoped>
   .md-app {
-    max-height: 400px;
+    max-height: 100vh;
     border: 1px solid rgba(#000, .12);
   }
 
@@ -66,10 +66,20 @@
 </style>
 
 <script>
+import Register from '@/components/Register.vue';
+
 export default {
   name: 'LastRowFixed',
   data: () => ({
     menuVisible: false,
   }),
+  components: {
+    Register,
+  },
+  computed: {
+    pageUrl() {
+      return window.location.href;
+    },
+  },
 };
 </script>

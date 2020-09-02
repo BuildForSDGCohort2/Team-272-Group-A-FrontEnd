@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "serve": "vue-cli-service serve",
+    "serve": "vue-cli-service serve --fix",
     "build": "vue-cli-service build",
     "test:unit": "vue-cli-service test:unit",
     "lint": "vue-cli-service lint"
@@ -14,6 +14,7 @@
     "vue": "^2.6.11",
     "vue-material": "^1.0.0-beta-15",
     "vue-router": "^3.2.0",
+    "vuelidate": "^0.7.5",
     "vuex": "^3.4.0"
   },
   "devDependencies": {
@@ -46,7 +47,12 @@
     "parserOptions": {
       "parser": "babel-eslint"
     },
-    "rules": {},
+    "rules": {
+      "linebreak-style": 0,
+      "global-require": 0,
+      "eslint linebreak-style": [0, "error", "windows"],
+      "consistent-return": 0
+    },
     "overrides": [
       {
         "files": [
