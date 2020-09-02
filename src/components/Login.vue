@@ -64,7 +64,6 @@ export default {
       email: null,
       password: null,
     },
-    userSaved: false,
     sending: false,
     lastUser: null,
     loading: false,
