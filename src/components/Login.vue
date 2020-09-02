@@ -8,22 +8,36 @@
         <!-- <div class="md-body-1">Build beautiful apps with Material Design and Vue.js</div> -->
       </div>
 
-      <div class="form">
-        <md-field>
-          <label>E-mail</label>
-          <md-input v-model="login.email" autofocus></md-input>
+      <form class="form" novalidate @submit.prevent="validateUser">
+        <md-field :class="getValidationClass('email')">
+            <label for="email">Email</label>
+            <md-input
+            type="email"
+            name="email"
+            id="email"
+            autocomplete="email" v-model="form.email" :disabled="sending" />
+            <span class="md-error" v-if="!$v.form.email.required">The email is required</span>
+            <span class="md-error" v-else-if="!$v.form.email.email">Invalid email</span>
+          </md-field>
+
+        <md-field md-has-password :class="getValidationClass('password')">
+            <label for="password">Password</label>
+          <md-input type="password"
+          name="password"
+          id="password"
+          :disabled="sending"
+          v-model="form.password" />
+          <span class="md-error" v-if="!$v.form.password.required">A Password is required</span>
+            <span class="md-error" v-else-if="!$v.form.password.minlength">Password too short</span>
         </md-field>
 
-        <md-field md-has-password>
-          <label>Password</label>
-          <md-input v-model="login.password" type="password"></md-input>
-        </md-field>
-      </div>
-
-      <div class="actions md-layout md-alignment-center-space-between">
+        <div class="actions md-layout md-alignment-center-space-between">
         <a href="/resetpassword">Reset password</a>
-        <md-button class="md-raised md-primary" @click="auth">Log in</md-button>
+        <md-button type="submit"
+          class="md-primary md-raised"
+          :disabled="sending">Log in</md-button>
       </div>
+      </form>
 
       <div class="loading-overlay" v-if="loading">
         <md-progress-spinner md-mode="indeterminate" :md-stroke="2"></md-progress-spinner>
@@ -35,18 +49,71 @@
 </template>
 
 <script>
+import { validationMixin } from 'vuelidate';
+import {
+  required,
+  email,
+  minLength,
+} from 'vuelidate/lib/validators';
+
 export default {
-  name: 'App',
-  data() {
-    return {
-      loading: false,
-      login: {
-        email: '',
-        password: '',
+  name: 'login',
+  mixins: [validationMixin],
+  data: () => ({
+    form: {
+      email: null,
+      password: null,
+    },
+    userSaved: false,
+    sending: false,
+    lastUser: null,
+    loading: false,
+  }),
+  validations: {
+    form: {
+      email: {
+        required,
+        email,
       },
-    };
+      password: {
+        required,
+        minLength: minLength(3),
+      },
+    },
   },
   methods: {
+    getValidationClass(fieldName) {
+      const field = this.$v.form[fieldName];
+
+      if (field) {
+        return {
+          'md-invalid': field.$invalid && field.$dirty,
+        };
+      }
+    },
+    clearForm() {
+      this.$v.$reset();
+      this.form.email = null;
+      this.form.password = null;
+    },
+    loginUser() {
+      this.sending = true;
+
+      // Instead of this timeout, here you can call your API
+      window.setTimeout(() => {
+        this.lastUser = `${this.form.email} ${this.form.password}`;
+        this.userSaved = true;
+        this.sending = false;
+        this.clearForm();
+      }, 1500);
+    },
+    validateUser() {
+      this.$v.$touch();
+
+      if (!this.$v.$invalid) {
+        this.loginUser();
+      }
+    },
     auth() {
       // your code to login user
       // this is only for example of loading
