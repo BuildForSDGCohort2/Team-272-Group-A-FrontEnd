@@ -44,7 +44,6 @@
       </div>
 
     </md-content>
-    <div class="background" />
   </div>
 </template>
 
