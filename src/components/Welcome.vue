@@ -11,7 +11,7 @@
           </md-card-header>
 
           <md-card-actions>
-            <md-button class="md-dense md-raised md-primary">Get Started</md-button>
+            <md-button class="md-dense md-raised md-primary" to="/register">Get Started</md-button>
             <!-- <md-button>Action</md-button> -->
           </md-card-actions>
         </md-card-area>
