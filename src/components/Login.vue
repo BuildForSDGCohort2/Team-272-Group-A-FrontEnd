@@ -41,6 +41,10 @@
       </div>
       </form>
 
+      <span class="md-body-1">New Here? </span>
+
+        <router-link to="/register"> Sign Up</router-link>
+
       <div class="loading-overlay" v-if="loading">
         <md-progress-spinner md-mode="indeterminate" :md-stroke="2"></md-progress-spinner>
       </div>
