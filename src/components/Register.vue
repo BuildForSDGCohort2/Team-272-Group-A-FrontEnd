@@ -7,105 +7,81 @@
       </div>
 
       <form novalidate class="form" @submit.prevent="validateUser">
-                <md-field :class="getValidationClass('firstName')">
-                  <label for="first-name">First Name</label>
-                  <md-input name="first-name"
-                  id="first-name"
-                  autocomplete="given-name"
-                  v-model="form.firstName"
-                  :disabled="sending" />
-                  <span class="md-error"
-                  v-if="!$v.form.firstName.required">The first name is required</span>
-                  <span class="md-error"
-                  v-else-if="!$v.form.firstName.minlength">Invalid first name</span>
-                </md-field>
+        <md-field :class="getValidationClass('fullName')">
+          <label for="full-name">Full Name</label>
+          <md-input name="full-name"
+          id="full-name" autocomplete="given-name"
+          v-model="form.fullName"
+            :disabled="sending" />
+          <span class="md-error" v-if="!$v.form.fullName.required">Your full name is required</span>
+          <span class="md-error" v-else-if="!$v.form.fullName.minlength">Invalid full name</span>
+        </md-field>
 
-                <md-field :class="getValidationClass('lastName')">
-                  <label for="last-name">Last Name</label>
-                  <md-input name="last-name"
-                  id="last-name"
-                  autocomplete="family-name" v-model="form.lastName" :disabled="sending" />
-                  <span class="md-error"
-                  v-if="!$v.form.lastName.required">The last name is required</span>
-                  <span class="md-error"
-                  v-else-if="!$v.form.lastName.minlength">Invalid last name</span>
-                </md-field>
+        <div>
+          <md-datepicker
+          v-model="form.dateOfBirth"
+          :class="getValidationClass('dateOfBirth')" name="date-of-birth"
+            id="date-of-birth">
+            <label for="date-of-birth">Date of Birth</label>
+            <span class="md-error"
+            v-if="!$v.form.dateOfBirth.required"
+            >Date Of Birth is required</span>
+          </md-datepicker>
+        </div>
 
-                <md-field :class="getValidationClass('gender')">
-                  <label for="gender">Gender</label>
-                  <md-select
-                  name="gender"
-                  id="gender"
-                  v-model="form.gender" md-dense :disabled="sending">
-                    <md-option></md-option>
-                    <md-option value="M">M</md-option>
-                    <md-option value="F">F</md-option>
-                  </md-select>
-                  <span class="md-error">The gender is required</span>
-                </md-field>
+        <md-field :class="getValidationClass('gender')">
+          <label for="gender">Gender</label>
+          <md-select name="gender" id="gender" v-model="form.gender" md-dense :disabled="sending">
+            <md-option></md-option>
+            <md-option value="M">M</md-option>
+            <md-option value="F">F</md-option>
+          </md-select>
+          <span class="md-error">The gender is required</span>
+        </md-field>
 
-                <md-field :class="getValidationClass('age')">
-                  <label for="age">Age</label>
-                  <md-input type="number"
-                  id="age"
-                  name="age"
-                  autocomplete="age" v-model="form.age" :disabled="sending" />
-                  <span class="md-error" v-if="!$v.form.age.required">The age is required</span>
-                  <span class="md-error" v-else-if="!$v.form.age.maxlength">Invalid age</span>
-                </md-field>
+        <md-field :class="getValidationClass('email')">
+          <label for="email">Email</label>
+          <md-input type="email" name="email" id="email" autocomplete="email" v-model="form.email"
+            :disabled="sending" />
+          <span class="md-error" v-if="!$v.form.email.required">The email is required</span>
+          <span class="md-error" v-else-if="!$v.form.email.email">Invalid email</span>
+        </md-field>
 
-            <md-field :class="getValidationClass('email')">
-              <label for="email">Email</label>
-              <md-input
-              type="email"
-              name="email"
-              id="email"
-              autocomplete="email" v-model="form.email" :disabled="sending" />
-              <span class="md-error" v-if="!$v.form.email.required">The email is required</span>
-              <span class="md-error" v-else-if="!$v.form.email.email">Invalid email</span>
-            </md-field>
-
-            <md-field md-has-password :class="getValidationClass('password')">
-            <label for="password">Password</label>
-          <md-input type="password"
-          name="password"
-          id="password"
-          :disabled="sending"
-          v-model="form.password" />
+        <md-field md-has-password :class="getValidationClass('password')">
+          <label for="password">Password</label>
+          <md-input type="password" name="password"
+          id="password" :disabled="sending" v-model="form.password" />
 
           <span class="md-error" v-if="!$v.form.password.required">A Password is required</span>
-            <span
-            class="md-error"
-            v-else-if="!$v.form.password.minlength">Password must be at least 6 characters </span>
+          <span class="md-error"
+          v-else-if="!$v.form.password.minlength">Password must be at least 6 characters </span>
         </md-field>
 
         <md-field md-has-password :class="getValidationClass('confirmPassword')">
-            <label for="confirmPassword">Confirm Password</label>
-          <md-input type="password"
-          name="confirmPassword"
-          id="confirmPassword"
-          :disabled="sending"
-          v-model="form.confirmPassword" />
-          <span class="md-error" v-if="!$v.form.confirmPassword.required"
+          <label for="confirmPassword">Confirm Password</label>
+          <md-input type="password" name="confirmPassword" id="confirmPassword" :disabled="sending"
+            v-model="form.confirmPassword" />
+          <span class="md-error"
+          v-if="!$v.form.confirmPassword.required"
           >Confirm Password is required</span>
-            <span
-            class="md-error"
-            v-else-if="!$v.form.confirmPassword.sameAsPassword">
+          <span class="md-error" v-else-if="!$v.form.confirmPassword.sameAsPassword">
             Passwords don't match</span>
         </md-field>
 
-          <md-progress-bar md-mode="indeterminate" v-if="sending" />
+        <md-progress-bar md-mode="indeterminate" v-if="sending" />
 
-          <md-card-actions>
-            <md-button type="submit"
-            class="md-primary"
-            :disabled="sending">Create Account</md-button>
-          </md-card-actions>
+        <md-card-actions>
+          <md-button type="submit" class="md-primary" :disabled="sending">Create Account</md-button>
+        </md-card-actions>
 
-        <md-snackbar
-        :md-active.sync="userSaved">The user {{ lastUser }} was saved with success!</md-snackbar>
+        <span class="md-body-1">Already have an account? </span>
+
+        <router-link to="/login"> Log in</router-link>
+
+        <md-snackbar :md-active.sync="userSaved"
+        >The user {{ lastUser }} was saved with success!</md-snackbar>
       </form>
-      </md-content>
+    </md-content>
   </div>
 </template>
 
@@ -115,7 +91,6 @@ import {
   required,
   email,
   minLength,
-  maxLength,
   sameAs,
 } from 'vuelidate/lib/validators';
 
@@ -124,10 +99,9 @@ export default {
   mixins: [validationMixin],
   data: () => ({
     form: {
-      firstName: null,
-      lastName: null,
+      fullName: null,
+      dateOfBirth: null,
       gender: null,
-      age: null,
       email: null,
       password: null,
       confirmPassword: null,
@@ -138,17 +112,12 @@ export default {
   }),
   validations: {
     form: {
-      firstName: {
+      fullName: {
         required,
         minLength: minLength(3),
       },
-      lastName: {
+      dateOfBirth: {
         required,
-        minLength: minLength(3),
-      },
-      age: {
-        required,
-        maxLength: maxLength(3),
       },
       gender: {
         required,
@@ -179,9 +148,7 @@ export default {
     },
     clearForm() {
       this.$v.$reset();
-      this.form.firstName = null;
-      this.form.lastName = null;
-      this.form.age = null;
+      this.form.fullName = null;
       this.form.gender = null;
       this.form.email = null;
     },
@@ -190,7 +157,7 @@ export default {
 
       // Instead of this timeout, here you can call your API
       window.setTimeout(() => {
-        this.lastUser = `${this.form.firstName} ${this.form.lastName}`;
+        this.lastUser = `${this.form.fullName}`;
         this.userSaved = true;
         this.sending = false;
         this.clearForm();
