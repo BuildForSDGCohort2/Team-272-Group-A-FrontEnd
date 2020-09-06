@@ -1,29 +1,34 @@
 <template>
-  <div id="app">
-
+  <transition mode="out-in">
     <router-view/>
-  </div>
+  </transition>
 </template>
 
 <style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
+    @import "@/styles/index.scss";
 
-#nav {
-  padding: 30px;
-
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
+    /* Remove in 1.2 */
+    .v-datatable thead th.column.sortable i {
+      vertical-align: unset;
     }
+</style>
+<script>
+// checks to see if auth jwt token is valid or has expired, if it gets back 401 error log out
+export default {
+  created: function () {
+    this.$http.interceptors.response.use((response) => {
+      return response
+    }, (error) => {
+      if (error.response.status === 401) {
+        if (this.$store.getters.authorized) {
+          this.$store.dispatch('refreshtoken')
+        } else {
+          return Promise.reject(error)
+        }
+      } else {
+        return Promise.reject(error)
+      }
+    })
   }
 }
-</style>
+</script>
