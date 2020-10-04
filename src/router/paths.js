@@ -38,6 +38,14 @@ export default [
       }
     ]
   },
+  {
+    path: '/home',
+    meta: {
+      name: 'Home View',
+      requiresAuth: false
+    },
+    component: () => import(`@/views/HomeView.vue`)
+  },
   // add any extra routes that you want rendered in the dashboard as a child below. Change toolbar names here
   {
     path: '/dashboard',
